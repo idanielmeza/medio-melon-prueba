@@ -47,5 +47,11 @@ yarn start
   
 ```
 
-
+## [Endpoints](openapi.yml)
+| Metodo | Endpoint | Descripción |
+| -------- | ----------- | ----------- |
+| GET | `/posts` | Obtiene 5 posts |
+| GET | `/post/:id/comments` | Obtiene los comentarios del post pasado por id |
+| POST | `/:id/comments` | Crea un comentario en un post |
+| POST | `/user/` | Crea un usuario |
 

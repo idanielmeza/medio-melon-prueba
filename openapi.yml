@@ -1,0 +1,120 @@
+openapi: '3.0.2'
+info:
+  title: API MEDIO-MELON
+  version: '1.0'
+servers:
+  - url: http://localhost:5000
+paths:
+  /posts:
+    get:
+      tags:
+      - posts
+      summary: Obtener 5 post, opcional de un usuario y desde un post en adelante
+      parameters:
+      - $ref: '#/components/parameters/creatorId'
+      - $ref: '#/components/parameters/skipUntilPostId'
+      responses:
+        '200':
+          description: OK
+
+  /post/{postId}/comments:
+    get:
+      tags:
+      - comentarios
+      summary: Obtener comentarios de un post
+      parameters:
+      - name: postId
+        in: path
+        description: Id del post
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - comentarios
+      summary: Inserta un nuevo comentario
+      parameters:
+      -  $ref: '#/components/parameters/postId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyCommentPost'
+        required: true
+      responses:
+        '200':
+          description: OK
+  
+  /user:
+    post:
+      tags:
+      - users
+      summary: Inserta la informacion de un nuevo usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyUserPost'
+        required: true
+
+
+      responses:
+        '200':
+          description: OK
+
+  
+
+components:
+
+  schemas:
+    BodyUserPost:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    
+    BodyCommentPost:
+      type: object
+      properties:
+        content:
+          type: string
+        userId:
+          type: string
+          
+  parameters:
+
+    creatorId:
+        in: query
+        name: creatorId
+        description: Id de usuario
+        required: false
+        schema:
+          type: string
+    
+    skipUntilPostId:
+        in: query
+        name: skipUntilPostId
+        description: id de cometario a partir de cual se mostrara
+        required: false
+        schema:
+          type: string
+
+    postId:
+      name: postId
+      in: path
+      description: Id del post
+      required: true
+      schema:
+        type: string
+  
+
+
+
+
+
+    
